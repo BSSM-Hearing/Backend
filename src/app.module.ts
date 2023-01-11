@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { ScoreModule } from './score/score.module';
+import { AlarmModule } from './alarm/alarm.module';
 
 @Module({
   imports: [
@@ -17,7 +19,7 @@ import { UserModule } from './user/user.module';
       entities: [__dirname + '/**/entities/*.entity.{js,ts}']
     }),
     AuthModule, 
-    UserModule,
+    UserModule, ScoreModule, AlarmModule,
   ],
   controllers: [],
   providers: [],

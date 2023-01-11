@@ -3,16 +3,13 @@ import { UserService } from '../service/user.service';
 import { CreateUserRq } from './rq/create-user.rq';
 import { UpdateUserParentRq } from './rq/update-user-parent.rq';
 import * as ApiPath from '../../common/path/ApiPath'
-import { ApiTags } from '@nestjs/swagger/dist';
-import { ApiOperation } from '@nestjs/swagger/dist/decorators/api-operation.decorator';
-import { ApiResponse } from '@nestjs/swagger/dist/decorators/api-response.decorator';
-import { LoginRq } from './rq/login.rq';
+import { ApiTags, ApiOperation, ApiResponse, ApiCookieAuth } from '@nestjs/swagger/dist';
 import { Response } from 'express';
+import { LoginRq } from './rq/login.rq';
 import { Token } from 'src/auth/models/token.model';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { GetUser } from 'src/auth/decorator/getUserDecorator';
 import { UserDto } from 'src/auth/dtos/user.dto';
-import { ApiCookieAuth } from '@nestjs/swagger/dist/decorators/api-cookie.decorator';
 
 @Controller(ApiPath.USER)
 @ApiTags('유저')
