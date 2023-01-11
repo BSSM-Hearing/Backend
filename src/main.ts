@@ -22,7 +22,7 @@ async function bootstrap() {
   app.use(cookieParser());
   app.setGlobalPrefix('api');
   setupSwagger(app);
-  await app.listen(process.env.SERVER_PORT);
+  await app.listen(process.env.SERVER_PORT, '0.0.0.0');
 }
 bootstrap();
   

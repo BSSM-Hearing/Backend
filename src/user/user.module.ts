@@ -6,20 +6,20 @@ import { AuthModule } from 'src/auth/auth.module';
 import { User } from './entities/user.entity';
 import { UserController } from './controller/user.controller';
 import { UserService } from './service/user.service';
-import { AuthService } from 'src/auth/auth.service';
+import { AuthService } from 'src/auth/service/auth.service';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
-    AuthModule, 
+    AuthModule,
     UserModule,
     PassportModule.register({ defaultStrategy: 'jwt', session: false }),
     JwtModule.register({
-        secret: process.env.SECRET_KEY,
-        signOptions: { expiresIn: '1y' },
+      secret: process.env.SECRET_KEY,
+      signOptions: { expiresIn: '1y' },
     })
   ],
   controllers: [UserController],
   providers: [UserService, AuthService]
 })
-export class UserModule {}
+export class UserModule { }
