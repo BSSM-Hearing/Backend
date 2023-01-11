@@ -1,18 +1,27 @@
 import { Expose } from "@nestjs/class-transformer";
-import { User } from "src/user/entities/user.entity";
+import { UserRole } from "src/common/enums/UserRole";
+import { ApiProperty } from '@nestjs/swagger/dist/decorators/api-property.decorator';
 
 export class UserDto {
 
     @Expose()
+    @ApiProperty()
     userId: number;
 
     @Expose()
+    @ApiProperty()
     nickname: string;
-
+    
     @Expose()
+    @ApiProperty()
     email: string;
-
+    
     @Expose()
-    totalWorkingHour: number;
+    @ApiProperty()
+    role: UserRole;
+    
+    @Expose()
+    @ApiProperty()
+    parentId: number;
 
 }
