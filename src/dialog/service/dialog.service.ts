@@ -27,10 +27,9 @@ export class DialogService {
 
     async GetDialogByHash(user: UserDto, hash: string) {
         const { userId } = user;
-        const hashInt = Number(hash);
         return await this.dialogRepository.find({
             where: {
-                hash: hashInt,
+                hash: hash,
                 userId: userId
             }
         })   

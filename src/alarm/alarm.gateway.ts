@@ -58,7 +58,7 @@ export class AlarmGateway implements OnGatewayConnection, OnGatewayDisconnect {
     async chat(client: Socket, data: CheckAlarmRq): Promise<void> {
         const userInfo = this.clients[client.id]?.user;
         if (!userInfo) return;
-        const parentId = await this.alarmService.checkAlarm(data);
+        const { parentId } = userInfo;
         this.server.to(parentId.toString()).emit('alarm', 'on');
     }
 

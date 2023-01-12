@@ -3,9 +3,9 @@ import { IsNumber, IsString } from 'class-validator';
 
 export class SendDialogRq {
 
-    @IsNumber()
+    @IsString()
     @ApiProperty()
-    hash: number; 
+    hash: string; 
 
     @IsString()
     @ApiProperty()

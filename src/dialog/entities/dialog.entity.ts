@@ -21,9 +21,9 @@ export class Dialog {
     @ApiProperty()
     userId: number;
     
-    @Column({ type: 'int', default: null })
+    @Column({ type: 'uuid', default: null })
     @ApiProperty()
-    hash: number;
+    hash: string;
     
     @Column({
         length: 1000,
