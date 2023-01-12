@@ -32,6 +32,10 @@ export class Dialog {
     @ApiProperty()
     content: string;
 
+    @Column({ type: 'int', default: 0 })
+    @ApiProperty()
+    wordCnt: number;
+
     @CreateDateColumn()
     @ApiProperty()
     createdAt: Date;

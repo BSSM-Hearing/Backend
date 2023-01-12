@@ -7,6 +7,7 @@ import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { GetUser } from 'src/auth/decorator/getUserDecorator';
 import { UserDto } from 'src/auth/dtos/user.dto';
 import { Score } from '../entities/score.entity';
+import { GetTodayScoreRs } from './rs/get-today-score.rs';
 
 @Controller(ApiPath.SCORE)
 @ApiTags('점수')
@@ -41,10 +42,10 @@ export class ScoreController {
     @ApiOperation({ summary: "오늘 내 점수 보기" })
     @ApiResponse({
         status: 200,
-        type: [Score]
+        type: GetTodayScoreRs
     })
     findToday(@GetUser() user: UserDto) {
-        return this.scoreService.findToday(user);
+        return this.scoreService.findTodayTopScore(user);
     }
 
 }

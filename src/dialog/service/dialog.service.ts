@@ -16,8 +16,11 @@ export class DialogService {
 
     async SendDialog(user: UserDto, rq: SendDialogRq) {
         const { userId } = user;
+        const { content } = rq;
+        const wordCnt = this.CalculateWordCount(content);
         await this.dialogRepository.save(plainToClass(Dialog, {
             ...rq,
+            wordCnt: wordCnt,
             userId: userId
         }));
     }
@@ -65,5 +68,10 @@ export class DialogService {
                 createdAt: MoreThanOrEqual(yesterday) && LessThanOrEqual(today),
             }
         })  
+    }
+
+    private CalculateWordCount(content: string) {
+        const wordList = content.split(' ');
+        return wordList.length;
     }
 }
