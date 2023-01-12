@@ -38,13 +38,4 @@ export class AlarmController {
     return this.alarmService.findAll(user);
   }
 
-  // @Post(":alarmId")
-  // @ApiOperation({ summary: "알림 확인" })
-  // @ApiResponse({
-  //   status: 200
-  // })
-  // checkAlarm(@GetUser() user: UserDto, @Param() rq: CheckAlarmRq) {
-  //   return this.alarmService.checkAlarm(user, rq);
-  // }
-
 }

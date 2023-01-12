@@ -10,7 +10,7 @@ export class WSAuthUtil {
     constructor(
         private jwtService: JwtService,
         @InjectRepository(User) private userRepository: Repository<User>,
-    ) {}
+    ) { }
 
     private clients: {
         [index: string]: {
@@ -23,16 +23,17 @@ export class WSAuthUtil {
         if (this.clients[client.id]) {
             return this.clients[client.id].user;
         }
-        const token = client.request.headers.cookie
-            ?.split('; ')
-            .find(cookie => cookie.startsWith('token='))
-            ?.split('=')[1];
-        
-        const result = this.jwtService.verify(token, {
-            secret: process.env.SECRET_KEY
-        });
-
-        return await this.getUser(result.id);
+        console.log(client.request.url);
+        const token = client.request.url.slice(18).split('&')[0]
+        console.log(token)
+        try {
+            const result = this.jwtService.verify(token, {
+                secret: process.env.SECRET_KEY
+            });
+            return await this.getUser(result.id);
+        } catch (error) {
+            return false;
+        }
     }
 
     private async getUser(id: number) {

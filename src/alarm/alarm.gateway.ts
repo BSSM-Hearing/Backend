@@ -1,6 +1,5 @@
 import { WebSocketGateway, WebSocketServer, SubscribeMessage, OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { UserDto } from 'src/auth/dtos/user.dto';
 import { WSAuthUtil } from 'src/auth/WS-auth';
 import { User } from 'src/user/entities/user.entity';
 import { CheckAlarmRq } from './controller/rq/check-alarm.rq';
@@ -8,7 +7,8 @@ import { AlarmService } from './service/alarm.service';
 
 @WebSocketGateway({
   namespace: 'alarm',
-  cors: true
+  cors: true,
+  transports: ['websocket', 'polling']
 })
 export class AlarmGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
