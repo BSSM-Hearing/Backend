@@ -7,6 +7,7 @@ import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { DialogService } from '../service/dialog.service';
 import { SendDialogRq } from './rq/send-dialog.rq';
 import { Dialog } from '../entities/dialog.entity';
+import { GetTodayDialogRs } from './rs/get-today-dialog-count.rs';
 
 @Controller(ApiPath.DIALOG)
 @ApiTags('대화')
@@ -45,7 +46,7 @@ export class DialogController {
     @ApiOperation({ summary: "오늘의 대화 횟수" })
     @ApiResponse({
         status: 200,
-        type: Number
+        type: GetTodayDialogRs
     }) 
     getTodayDialogCount(
         @GetUser() user: UserDto,
