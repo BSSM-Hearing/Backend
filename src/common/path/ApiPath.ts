@@ -11,3 +11,4 @@ export const ALARM_CHECK = ":alarmId" as const;
 export const DIALOG = "dialog" as const;
 export const DIALOG_GET_BY_HASH = ":hash" as const;
 export const DIALOG_TODAY = "get/today" as const;
+export const DIALOG_RATIO = "get/ratio" as const;

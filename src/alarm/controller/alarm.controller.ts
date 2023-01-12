@@ -1,6 +1,5 @@
 import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
 import { AlarmService } from '../service/alarm.service';
-import { CreateAlarmRq } from './rq/create-alarm.rq';
 import { ApiTags, ApiOperation, ApiResponse, ApiCookieAuth } from '@nestjs/swagger/dist';
 import * as ApiPath from '../../common/path/ApiPath'
 import { GetUser } from 'src/auth/decorator/getUserDecorator';
@@ -23,9 +22,8 @@ export class AlarmController {
     })
     create(
         @GetUser() user: UserDto,
-        @Body() rq: CreateAlarmRq
     ) {
-        return this.alarmService.create(user, rq);
+        return this.alarmService.create(user);
     }
 
     @Get()

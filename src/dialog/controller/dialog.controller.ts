@@ -54,4 +54,16 @@ export class DialogController {
         return this.dialogService.GetTodayDialogCount(user);
     }
 
+    @Get(ApiPath.DIALOG_RATIO)
+    @ApiOperation({ summary: "문장 마디 비율" })
+    @ApiResponse({
+        status: 200,
+        // type: GetTodayDialogRs
+    }) 
+    getTodayWordCountRatio(
+        @GetUser() user: UserDto,
+    ) {
+        return this.dialogService.GetTodayWordCountRatio(user);
+    }
+
 }

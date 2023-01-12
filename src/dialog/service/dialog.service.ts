@@ -74,4 +74,16 @@ export class DialogService {
         const wordList = content.split(' ');
         return wordList.length;
     }
+
+    async GetTodayWordCountRatio(user: UserDto) {
+        const { userId } = user;
+        return await this.dialogRepository.createQueryBuilder()
+            .select(`count(case when 1 <= wordCnt and wordCnt < 4 then 1 end) '0to3'`)
+            .addSelect(`count(case when 4 <= wordCnt and wordCnt < 7 then 1 end) '4to7'`)
+            .addSelect(`count(case when 7 <= wordCnt and wordCnt < 10 then 1 end) '7to10'`)
+            .addSelect(`count(case when 10 <= wordCnt and wordCnt < 13 then 1 end) '10to13'`)
+            .addSelect(`count(case when 13 <= wordCnt and wordCnt < 16 then 1 end) '13to16'`)
+            .where("userId = :userId", {userId: userId})
+            .getRawOne()
+    }
 }

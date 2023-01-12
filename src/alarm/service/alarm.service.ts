@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateAlarmRq } from '../controller/rq/create-alarm.rq';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserDto } from 'src/auth/dtos/user.dto';
 import { Alarm } from '../entities/alarm.entity';
@@ -16,11 +15,12 @@ export class AlarmService {
         @InjectRepository(User) private userRepository: Repository<User>
     ) { }
 
-    async create(user: UserDto, rq: CreateAlarmRq) {
-        const { userId } = user;
+    async create(user: UserDto) {
+        const { userId, parentId } = user;
+        if (!parentId) throw new NotFoundException("보호자가 없습니다.");
         await this.alarmRepository.save(plainToClass(Alarm, {
-            ...rq,
-            userId: userId
+            userId: userId,
+            parentId: parentId
         }));
     }
 
