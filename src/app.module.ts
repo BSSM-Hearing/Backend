@@ -5,6 +5,7 @@ import { UserModule } from './user/user.module';
 import { ScoreModule } from './score/score.module';
 import { AlarmModule } from './alarm/alarm.module';
 import { DialogModule } from './dialog/dialog.module';
+import { MqttModule } from './mqtt/mqtt.module';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { DialogModule } from './dialog/dialog.module';
       entities: [__dirname + '/**/entities/*.entity.{js,ts}']
     }),
     AuthModule, 
-    UserModule, ScoreModule, AlarmModule, DialogModule,
+    UserModule, ScoreModule, AlarmModule, DialogModule, MqttModule,
   ],
   controllers: [],
   providers: [],

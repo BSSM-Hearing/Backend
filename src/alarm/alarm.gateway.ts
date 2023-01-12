@@ -33,7 +33,6 @@ export class AlarmGateway implements OnGatewayConnection, OnGatewayDisconnect {
         if (!userInfo) {
             client.emit('error', 'Unauthorized');
             client.disconnect();
-            console.log('fail')
             return;
         }
         this.clients[client.id] = {
@@ -42,7 +41,6 @@ export class AlarmGateway implements OnGatewayConnection, OnGatewayDisconnect {
         };
         this.server.emit('users', this.users);
         const parentId = await this.alarmService.getParentId(userInfo);
-        console.log(parentId);
         client.join(parentId.toString());
     }
 
