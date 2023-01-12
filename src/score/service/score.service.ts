@@ -2,9 +2,8 @@ import { plainToClass } from '@nestjs/class-transformer';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserDto } from 'src/auth/dtos/user.dto';
-import { getTodayDate } from 'src/common/utils/getTodayDate';
-import { CreateUserRq } from 'src/user/controller/rq/create-user.rq';
-import { MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
+import { getTodayDate } from 'src/common/utils';
+import { MoreThanOrEqual, Repository } from 'typeorm';
 import { CreateScoreRq } from '../controller/rq/create-score.rq';
 import { Score } from '../entities/score.entity';
 

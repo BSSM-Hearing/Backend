@@ -3,7 +3,7 @@ dotenv.config({ path: '.env' });
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { setupSwagger } from 'src/common/utils/swagger';
+import { setupSwagger } from 'src/common/utils/';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

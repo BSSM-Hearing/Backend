@@ -7,3 +7,7 @@ export const getTodayDate = () => {
     const today = new Date(dateStr)
     return today;
 }
+
+export const getYesterdayDate = () => {
+    // TODO::작성
+}
