@@ -17,24 +17,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     constructor(@InjectRepository(User) private userRepository: Repository<User>,
         private jwtService: JwtService) {
         super({
-            jwtFromRequest: ExtractJwt.fromExtractors([
-                (req: Request) => {
-                    return req?.cookies?.token;
-                }
-            ]),
+            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             secretOrKey: SECRET_KEY,
-            passReqToCallback: true,
+            ignoreExpiration: false,
         });
     }
 
-    async validate(req: Request) {
-        const token = await this.jwtService.verify(req?.cookies?.token, {
-            secret: SECRET_KEY,
-        });
-        if (token === undefined) {
-            throw new UnauthorizedException();
-        }
-        const user = await this.getUser(token.userId);
+    async validate(payload: any) {
+        const user = await this.getUser(payload.userId);
         return user;
     }
 

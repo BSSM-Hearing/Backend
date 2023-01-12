@@ -33,9 +33,8 @@ export class UserController {
         type: Token
     })
     login(
-        @Res({ passthrough: true }) rs: Response,
         @Body() rq: LoginRq) {
-        return this.userService.Login(rs, rq);
+        return this.userService.Login(rq);
     }
 
     @Get()

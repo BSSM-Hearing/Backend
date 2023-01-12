@@ -41,13 +41,13 @@ export class UserService {
         return hashedPassword;
     }
 
-    async Login(rs: Response, rq: LoginRq) {
+    async Login(rq: LoginRq) {
         const { email, password } = rq;
         const user = await this.userRepository.findOneBy({ email: email });
         if (!user) throw new NotFoundException("유저 이메일을 찾을 수 없습니다.");
         const hashedPassword = user.password;
         await this.VerifyPassword(password, hashedPassword);
-        return this.authService.getToken(rs, user.userId, email);
+        return this.authService.getToken(user.userId, email);
     }
 
     private async VerifyPassword(plainTextPassword: string, hashedPassword: string) {

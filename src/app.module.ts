@@ -4,6 +4,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { ScoreModule } from './score/score.module';
 import { AlarmModule } from './alarm/alarm.module';
+import { DialogModule } from './dialog/dialog.module';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { AlarmModule } from './alarm/alarm.module';
       entities: [__dirname + '/**/entities/*.entity.{js,ts}']
     }),
     AuthModule, 
-    UserModule, ScoreModule, AlarmModule,
+    UserModule, ScoreModule, AlarmModule, DialogModule,
   ],
   controllers: [],
   providers: [],
