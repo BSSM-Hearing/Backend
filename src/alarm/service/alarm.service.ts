@@ -9,18 +9,24 @@ import { plainToClass } from '@nestjs/class-transformer';
 @Injectable()
 export class AlarmService {
   constructor(
-    @InjectRepository(Alarm) private scoreRepository: Repository<Alarm>,
+    @InjectRepository(Alarm) private alarmRepository: Repository<Alarm>,
   ) { }
 
   async create(user: UserDto, rq: CreateAlarmRq) {
     const { userId } = user;
-    await this.scoreRepository.save(plainToClass(Alarm, {
+    await this.alarmRepository.save(plainToClass(Alarm, {
       ...rq,
       userId: userId
     }));
   }
-  findAll() {
-    return `This action returns all alarm`;
+  
+  async findAll(user: UserDto) {
+    const { userId } = user;
+    return await this.alarmRepository.find({
+      where: {
+        userId: userId
+      }
+    });
   }
 
   findOne(id: number) {

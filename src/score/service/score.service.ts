@@ -2,8 +2,9 @@ import { plainToClass } from '@nestjs/class-transformer';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserDto } from 'src/auth/dtos/user.dto';
+import { getTodayDate } from 'src/common/utils/getTodayDate';
 import { CreateUserRq } from 'src/user/controller/rq/create-user.rq';
-import { Repository } from 'typeorm';
+import { MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
 import { CreateScoreRq } from '../controller/rq/create-score.rq';
 import { Score } from '../entities/score.entity';
 
@@ -22,12 +23,25 @@ export class ScoreService {
     }));
   }
 
-  findAll() {
-    return `This action returns all score`;
+  async findAll(user: UserDto) {
+    const { userId } = user;
+    return await this.scoreRepository.find({
+      where: {
+        userId: userId
+      }
+    })
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} score`;
+  async findToday(user: UserDto) {
+    const { userId } = user;
+    const today = getTodayDate();
+    console.log(today);
+    return await this.scoreRepository.find({
+      where: {
+        userId: userId,
+        createdAt: MoreThanOrEqual(today)
+      }
+    })
   }
 
 }

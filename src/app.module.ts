@@ -16,6 +16,7 @@ import { AlarmModule } from './alarm/alarm.module';
       database: process.env.DB_NAME,
       synchronize: true,
       logging: true,
+      timezone: 'Z',
       entities: [__dirname + '/**/entities/*.entity.{js,ts}']
     }),
     AuthModule, 

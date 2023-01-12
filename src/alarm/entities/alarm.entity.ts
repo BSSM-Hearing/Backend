@@ -1,4 +1,4 @@
-import { UserRole } from 'src/common/enums/UserRole';
+import { ApiProperty } from '@nestjs/swagger/dist/decorators/api-property.decorator';
 import { User } from 'src/user/entities/user.entity';
 import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, ManyToOne, OneToMany, JoinColumn, CreateDateColumn } from 'typeorm';
 
@@ -10,6 +10,7 @@ export class Alarm {
         name: "id",
         unsigned: true 
     })
+    @ApiProperty()
     alarmId: number;
 
     @ManyToOne(type => User, user => user.userId)
@@ -17,6 +18,7 @@ export class Alarm {
     user: User;
 
     @Column({ nullable: false, unsigned: true })
+    @ApiProperty()
     userId: number;
 
     @ManyToOne(type => User, parent => parent.userId)
@@ -24,9 +26,11 @@ export class Alarm {
     parent: User;
 
     @Column({ nullable: false, unsigned: true })
+    @ApiProperty()
     parentId: number;
 
     @CreateDateColumn()
+    @ApiProperty()
     createdAt: Date;
     
 }

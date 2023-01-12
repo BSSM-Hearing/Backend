@@ -5,6 +5,6 @@ export class CreateScoreRq {
 
     @IsNumber()
     @ApiProperty()
-    parentId!: number;
+    score!: number;
 
 }

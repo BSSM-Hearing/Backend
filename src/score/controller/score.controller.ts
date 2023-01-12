@@ -6,6 +6,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiCookieAuth } from '@nestjs/swagg
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { GetUser } from 'src/auth/decorator/getUserDecorator';
 import { UserDto } from 'src/auth/dtos/user.dto';
+import { Score } from '../entities/score.entity';
 
 @Controller(ApiPath.SCORE)
 @ApiTags('점수')
@@ -17,7 +18,7 @@ export class ScoreController {
   @Post(ApiPath.SCORE_CREATE)
   @ApiOperation({ summary: "점수 업로드" })
   @ApiResponse({
-      status: 200
+    status: 200
   })
   create(
     @GetUser() user: UserDto,
@@ -25,15 +26,25 @@ export class ScoreController {
   ) {
     return this.scoreService.create(user, rq);
   }
-
-  @Get()
-  findAll() {
-    return this.scoreService.findAll();
+  
+  @Get(ApiPath.SCORE_ALL)
+  @ApiOperation({ summary: "내 모든 점수 보기" })
+  @ApiResponse({
+    status: 200,
+    type: [Score]
+  })
+  findAll(@GetUser() user: UserDto) {
+    return this.scoreService.findAll(user);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.scoreService.findOne(+id);
+  @Get(ApiPath.SCORE_TODAY)
+  @ApiOperation({ summary: "오늘 내 점수 보기" })
+  @ApiResponse({
+    status: 200,
+    type: [Score]
+  })
+  findToday(@GetUser() user: UserDto) {
+    return this.scoreService.findToday(user);
   }
 
 }

@@ -6,6 +6,7 @@ import * as ApiPath from '../../common/path/ApiPath'
 import { GetUser } from 'src/auth/decorator/getUserDecorator';
 import { UserDto } from 'src/auth/dtos/user.dto';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
+import { Alarm } from '../entities/alarm.entity';
 
 @Controller(ApiPath.ALARM)
 @ApiTags('알림')
@@ -27,12 +28,15 @@ export class AlarmController {
   }
 
   @Get()
-  findAll() {
-    return this.alarmService.findAll();
+  @ApiOperation({ summary: "내 알림 보기" })
+  @ApiResponse({
+      status: 200,
+      type: [Alarm]
+  })
+  findAll(@GetUser() user: UserDto) {
+    return this.alarmService.findAll(user);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.alarmService.findOne(+id);
-  }
+  
+
 }
