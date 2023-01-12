@@ -11,7 +11,9 @@ import { User } from 'src/user/entities/user.entity';
   imports: [
     TypeOrmModule.forFeature([User]),
     PassportModule,
-    JwtModule,
+    JwtModule.register({
+      secret: process.env.SECRET_KEY
+    }),
   ],
   providers: [AuthService, JwtStrategy],
   controllers: [AuthController]

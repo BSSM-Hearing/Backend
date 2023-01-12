@@ -7,6 +7,7 @@ import { GetUser } from 'src/auth/decorator/getUserDecorator';
 import { UserDto } from 'src/auth/dtos/user.dto';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { Alarm } from '../entities/alarm.entity';
+import { CheckAlarmRq } from './rq/check-alarm.rq';
 
 @Controller(ApiPath.ALARM)
 @ApiTags('알림')
@@ -37,6 +38,13 @@ export class AlarmController {
     return this.alarmService.findAll(user);
   }
 
-  
+  // @Post(":alarmId")
+  // @ApiOperation({ summary: "알림 확인" })
+  // @ApiResponse({
+  //   status: 200
+  // })
+  // checkAlarm(@GetUser() user: UserDto, @Param() rq: CheckAlarmRq) {
+  //   return this.alarmService.checkAlarm(user, rq);
+  // }
 
 }
