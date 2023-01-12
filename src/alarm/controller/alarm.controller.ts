@@ -14,28 +14,28 @@ import { CheckAlarmRq } from './rq/check-alarm.rq';
 @ApiCookieAuth()
 @UseGuards(JwtAuthGuard)
 export class AlarmController {
-  constructor(private readonly alarmService: AlarmService) { }
+    constructor(private readonly alarmService: AlarmService) { }
 
-  @Post()
-  @ApiOperation({ summary: "긴급 보호자 요청" })
-  @ApiResponse({
-      status: 200
-  })
-  create(
-    @GetUser() user: UserDto,
-    @Body() rq: CreateAlarmRq
-  ) {
-    return this.alarmService.create(user, rq);
-  }
+    @Post()
+    @ApiOperation({ summary: "긴급 보호자 요청" })
+    @ApiResponse({
+        status: 200
+    })
+    create(
+        @GetUser() user: UserDto,
+        @Body() rq: CreateAlarmRq
+    ) {
+        return this.alarmService.create(user, rq);
+    }
 
-  @Get()
-  @ApiOperation({ summary: "내 알림 보기" })
-  @ApiResponse({
-      status: 200,
-      type: [Alarm]
-  })
-  findAll(@GetUser() user: UserDto) {
-    return this.alarmService.findAll(user);
-  }
+    @Get()
+    @ApiOperation({ summary: "내 알림 보기" })
+    @ApiResponse({
+        status: 200,
+        type: [Alarm]
+    })
+    findAll(@GetUser() user: UserDto) {
+        return this.alarmService.findAll(user);
+    }
 
 }

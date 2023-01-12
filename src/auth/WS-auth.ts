@@ -23,9 +23,7 @@ export class WSAuthUtil {
         if (this.clients[client.id]) {
             return this.clients[client.id].user;
         }
-        console.log(client.request.url);
-        const token = client.request.url.slice(18).split('&')[0]
-        console.log(token)
+        const token = client.request.url.slice(18).split('&')[0];
         try {
             const result = this.jwtService.verify(token, {
                 secret: process.env.SECRET_KEY

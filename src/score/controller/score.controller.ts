@@ -13,38 +13,38 @@ import { Score } from '../entities/score.entity';
 @ApiCookieAuth()
 @UseGuards(JwtAuthGuard)
 export class ScoreController {
-  constructor(private readonly scoreService: ScoreService) { }
+    constructor(private readonly scoreService: ScoreService) { }
 
-  @Post(ApiPath.SCORE_CREATE)
-  @ApiOperation({ summary: "점수 업로드" })
-  @ApiResponse({
-    status: 200
-  })
-  create(
-    @GetUser() user: UserDto,
-    @Body() rq: CreateScoreRq
-  ) {
-    return this.scoreService.create(user, rq);
-  }
-  
-  @Get(ApiPath.SCORE_ALL)
-  @ApiOperation({ summary: "내 모든 점수 보기" })
-  @ApiResponse({
-    status: 200,
-    type: [Score]
-  })
-  findAll(@GetUser() user: UserDto) {
-    return this.scoreService.findAll(user);
-  }
+    @Post(ApiPath.SCORE_CREATE)
+    @ApiOperation({ summary: "점수 업로드" })
+    @ApiResponse({
+        status: 200
+    })
+    create(
+        @GetUser() user: UserDto,
+        @Body() rq: CreateScoreRq
+    ) {
+        return this.scoreService.create(user, rq);
+    }
 
-  @Get(ApiPath.SCORE_TODAY)
-  @ApiOperation({ summary: "오늘 내 점수 보기" })
-  @ApiResponse({
-    status: 200,
-    type: [Score]
-  })
-  findToday(@GetUser() user: UserDto) {
-    return this.scoreService.findToday(user);
-  }
+    @Get(ApiPath.SCORE_ALL)
+    @ApiOperation({ summary: "내 모든 점수 보기" })
+    @ApiResponse({
+        status: 200,
+        type: [Score]
+    })
+    findAll(@GetUser() user: UserDto) {
+        return this.scoreService.findAll(user);
+    }
+
+    @Get(ApiPath.SCORE_TODAY)
+    @ApiOperation({ summary: "오늘 내 점수 보기" })
+    @ApiResponse({
+        status: 200,
+        type: [Score]
+    })
+    findToday(@GetUser() user: UserDto) {
+        return this.scoreService.findToday(user);
+    }
 
 }

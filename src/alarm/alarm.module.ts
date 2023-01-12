@@ -10,11 +10,11 @@ import { JwtStrategy } from 'src/auth/jwt/jwt.strategy';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Alarm, User]),
-    JwtModule
-  ],
-  controllers: [AlarmController],
-  providers: [AlarmService, AlarmGateway, WSAuthUtil]
+    imports: [
+        TypeOrmModule.forFeature([Alarm, User]),
+        JwtModule
+    ],
+    controllers: [AlarmController],
+    providers: [AlarmService, AlarmGateway, WSAuthUtil]
 })
 export class AlarmModule { }

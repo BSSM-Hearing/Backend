@@ -11,37 +11,37 @@ import { Score } from '../entities/score.entity';
 @Injectable()
 export class ScoreService {
 
-  constructor(
-    @InjectRepository(Score) private scoreRepository: Repository<Score>,
-  ) { }
+    constructor(
+        @InjectRepository(Score) private scoreRepository: Repository<Score>,
+    ) { }
 
-  async create(user: UserDto, rq: CreateScoreRq) {
-    const { userId } = user;
-    await this.scoreRepository.save(plainToClass(Score, {
-      ...rq,
-      userId: userId
-    }));
-  }
+    async create(user: UserDto, rq: CreateScoreRq) {
+        const { userId } = user;
+        await this.scoreRepository.save(plainToClass(Score, {
+            ...rq,
+            userId: userId
+        }));
+    }
 
-  async findAll(user: UserDto) {
-    const { userId } = user;
-    return await this.scoreRepository.find({
-      where: {
-        userId: userId
-      }
-    })
-  }
+    async findAll(user: UserDto) {
+        const { userId } = user;
+        return await this.scoreRepository.find({
+            where: {
+                userId: userId
+            }
+        })
+    }
 
-  async findToday(user: UserDto) {
-    const { userId } = user;
-    const today = getTodayDate();
-    console.log(today);
-    return await this.scoreRepository.find({
-      where: {
-        userId: userId,
-        createdAt: MoreThanOrEqual(today)
-      }
-    })
-  }
+    async findToday(user: UserDto) {
+        const { userId } = user;
+        const today = getTodayDate();
+        console.log(today);
+        return await this.scoreRepository.find({
+            where: {
+                userId: userId,
+                createdAt: MoreThanOrEqual(today)
+            }
+        })
+    }
 
 }

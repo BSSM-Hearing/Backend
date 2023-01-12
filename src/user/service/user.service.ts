@@ -32,7 +32,7 @@ export class UserService {
         const { parentUserId } = rq;
         await this.userRepository.save(plainToClass(User, {
             ...rq,
-            parentId: parentUserId
+            parentId: parentUserId ?? null
         }));
     }
 

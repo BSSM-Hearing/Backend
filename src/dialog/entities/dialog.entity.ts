@@ -2,16 +2,16 @@ import { ApiProperty } from '@nestjs/swagger/dist/decorators/api-property.decora
 import { User } from 'src/user/entities/user.entity';
 import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, ManyToOne, OneToMany, JoinColumn, CreateDateColumn } from 'typeorm';
 
-@Entity('alarm')
-export class Alarm {
+@Entity('dialog')
+export class Dialog {
 
     @PrimaryGeneratedColumn('increment')
-    @PrimaryColumn({
+    @PrimaryColumn({ 
         name: "id",
-        unsigned: true
+        unsigned: true 
     })
     @ApiProperty()
-    alarmId: number;
+    dialogId: number;
 
     @ManyToOne(type => User, user => user.userId)
     @JoinColumn({ name: 'userId' })
@@ -20,17 +20,20 @@ export class Alarm {
     @Column({ nullable: false, unsigned: true })
     @ApiProperty()
     userId: number;
-
-    @ManyToOne(type => User, parent => parent.userId)
-    @JoinColumn({ name: 'parentId' })
-    parent: User;
-
-    @Column({ nullable: false, unsigned: true })
+    
+    @Column({ type: 'int', default: null })
     @ApiProperty()
-    parentId: number;
+    hash: number;
+    
+    @Column({
+        length: 1000,
+        nullable: false
+    })
+    @ApiProperty()
+    content: string;
 
     @CreateDateColumn()
     @ApiProperty()
     createdAt: Date;
-
+    
 }
