@@ -8,6 +8,7 @@ import { DialogService } from '../service/dialog.service';
 import { SendDialogRq } from './rq/send-dialog.rq';
 import { Dialog } from '../entities/dialog.entity';
 import { GetTodayDialogRs } from './rs/get-today-dialog-count.rs';
+import { GetTodayWordCountRatioRs } from './rs/get-today-word-count-ratio.rs';
 
 @Controller(ApiPath.DIALOG)
 @ApiTags('대화')
@@ -58,7 +59,7 @@ export class DialogController {
     @ApiOperation({ summary: "문장 마디 비율" })
     @ApiResponse({
         status: 200,
-        // type: GetTodayDialogRs
+        type: GetTodayWordCountRatioRs
     }) 
     getTodayWordCountRatio(
         @GetUser() user: UserDto,
