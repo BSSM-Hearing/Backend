@@ -6,10 +6,10 @@ import { CreateUserRq } from '../controller/rq/create-user.rq';
 import { User } from '../entities/user.entity';
 import { plainToClass } from '@nestjs/class-transformer';
 import { LoginRq } from '../controller/rq/login.rq';
-import { Response } from 'express';
 import { AuthService } from 'src/auth/service/auth.service';
 import { UserDto } from 'src/auth/dtos/user.dto';
 import { UpdateUserParentRq } from '../controller/rq/update-user-parent.rq';
+import * as ApiException from 'src/common/exceptions/ApiException';
 
 @Injectable()
 export class UserService {
@@ -44,7 +44,7 @@ export class UserService {
     async Login(rq: LoginRq) {
         const { email, password } = rq;
         const user = await this.userRepository.findOneBy({ email: email });
-        if (!user) throw new NotFoundException("유저 이메일을 찾을 수 없습니다.");
+        if (!user) throw new NotFoundException(ApiException.NOT_FOUND_EMAIL);
         const hashedPassword = user.password;
         await this.VerifyPassword(password, hashedPassword);
         return this.authService.getToken(user.userId, email);
@@ -56,14 +56,14 @@ export class UserService {
             hashedPassword
         );
         if (!isPasswordMatching) {
-            throw new NotAcceptableException("패스워드가 맞지 않습니다.");
+            throw new NotAcceptableException(ApiException.NOT_ACCEPTABLE_PASSWORD);
         }
     }
 
     async UpdateUserParent(user: UserDto, rq: UpdateUserParentRq) {
         const { parentId } = rq;
         const parent = await this.userRepository.findOneBy({ userId: parentId });
-        if (!parent) throw new NotFoundException("유저 이메일을 찾을 수 없습니다.");
+        if (!parent) throw new NotFoundException(ApiException.NOT_FOUND_EMAIL);
         await this.userRepository.createQueryBuilder()
             .update(User)
             .set({

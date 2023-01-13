@@ -5,19 +5,18 @@ import { Alarm } from '../entities/alarm.entity';
 import { Repository } from 'typeorm';
 import { plainToClass } from '@nestjs/class-transformer';
 import { CheckAlarmRq } from '../controller/rq/check-alarm.rq';
-import { User } from 'src/user/entities/user.entity';
 import { UserRole } from 'src/common/enums/UserRole';
+import * as ApiException from "src/common/exceptions/ApiException";
 
 @Injectable()
 export class AlarmService {
     constructor(
         @InjectRepository(Alarm) private alarmRepository: Repository<Alarm>,
-        @InjectRepository(User) private userRepository: Repository<User>
     ) { }
 
     async create(user: UserDto) {
         const { userId, parentId } = user;
-        if (!parentId) throw new NotFoundException("보호자가 없습니다.");
+        if (!parentId) throw new NotFoundException(ApiException.NOT_FOUND_PARENT);
         await this.alarmRepository.save(plainToClass(Alarm, {
             userId: userId,
             parentId: parentId
@@ -38,7 +37,7 @@ export class AlarmService {
         const alarm = await this.alarmRepository.findOneBy({
             alarmId: alarmId
         })
-        if (!alarm) throw new NotFoundException("알람이 존재하지 않습니다.");
+        if (!alarm) throw new NotFoundException(ApiException.NOT_FOUND_ALARM);
         const parentId = alarm.parentId;
         return parentId;
     }
